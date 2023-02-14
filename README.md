@@ -4,10 +4,10 @@ Tabela de conteúdos
 =================
 <p align="center">
  <a href="#objetivo">Descrição do Projeto</a> •
-  <a href="#objetivo">Status do projeto</a> •
+ <a href="#objetivo">Status do projeto</a> •
  <a href="#roadmap">Funcionalidades</a> • 
-  <a href="#roadmap">Demonstração da Aplicação</a> • 
- <a href="#tecnologias">Tecnologias utilizadas</a> • 
+ <a href="#roadmap">Demonstração da Aplicação</a> • 
+ <a href="#tecnologias">Tecnologias utilizadas</a> •
  <a href="#autor">Autor</a>
 </p>
 
@@ -26,7 +26,7 @@ Status do projeto
 - [x] Interface para que um usuário possa ver e gerenciar os links manualmente. 
 - [ ] Automatização do processo de salvar links com um web crawler que importe artigos dos blogs favoritos, como a devGo.
 
-🛠 Tecnologias
+🛠 Tecnologias utilizadas
 =================
 - [Node.js](https://nodejs.org/en/)
 - [Express](https://expressjs.com/)
