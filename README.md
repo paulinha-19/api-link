@@ -5,8 +5,8 @@ Tabela de conteúdos
 <p align="center">
  <a href="#objetivo">Descrição do Projeto</a> •
  <a href="#objetivo">Status do projeto</a> •
- <a href="#roadmap">Funcionalidades</a> • 
- <a href="#roadmap">Demonstração da Aplicação</a> • 
+ <a href="#executar">Funcionalidades</a> • 
+ <a href="#roadmap">Executar o projeto</a> • 
  <a href="#tecnologias">Tecnologias utilizadas</a> •
  <a href="#autor">Autor</a>
 </p>
