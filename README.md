@@ -26,7 +26,7 @@ Status do projeto
 - [x] Interface para que um usuário possa ver e gerenciar os links manualmente. 
 - [ ] Automatização do processo de salvar links com um web crawler que importe artigos dos blogs favoritos, como a devGo.
 
-🛠 Tecnologias utilizadas
+🛠 Tecnologias
 =================
 - [Node.js](https://nodejs.org/en/)
 - [Express](https://expressjs.com/)
@@ -38,7 +38,7 @@ Status do projeto
 
 Autor
 =================
- <img style="border-radius: 50%;" src="" width="100px;" alt=""/>
+ <img style="border-radius: 50%;" src="https://user-images.githubusercontent.com/32405554/218635417-51dbfd99-1047-4f02-94ca-1a9d2c81ea41.jpg" width="100px;" alt=""/>
  <br />
 
 [![Linkedin Badge](https://img.shields.io/badge/-Paula-blue?style=flat-square&logo=Linkedin&logoColor=white&link=https://www.linkedin.com/in/paulaso/)](https://www.linkedin.com/in/paulaso/) 
