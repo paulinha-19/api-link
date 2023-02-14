@@ -26,6 +26,31 @@ Status do projeto
 - [x] Interface para que um usuário possa ver e gerenciar os links manualmente. 
 - [ ] Automatização do processo de salvar links com um web crawler que importe artigos dos blogs favoritos, como a devGo.
 
+Pré-requisitos e como rodar a aplicação
+=================
+Antes de começar, você vai precisar ter instalado em sua máquina as seguintes ferramentas:
+[Git](https://git-scm.com), [Node.js](https://nodejs.org/en/), [MySql] (https://dev.mysql.com/downloads/windows/installer/8.0.html).
+Nesse projeto utilizei o [VSCode](https://code.visualstudio.com/) para editar o código.
+
+### Clone este repositório
+```bash
+$ git clone <https://github.com/paulinha-19/api-link.git>
+
+### Acesse a pasta do projeto no terminal/cmd
+$ cd api-link
+
+### Vá para a pasta server
+$ cd api
+
+### Instale as dependências
+$ npm install
+
+### Execute a aplicação
+$ npm node index.js
+
+### O servidor inciará na porta:4000 - acesse <http://localhost:3333>
+```
+
 🛠 Tecnologias utilizadas
 =================
 - [Node.js](https://nodejs.org/en/)
