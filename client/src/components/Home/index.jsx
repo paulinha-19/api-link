@@ -1,11 +1,12 @@
-import React from 'react';
-import { Table, TableBody, TableContainer, TableHead, TableRow, Paper, styled, IconButton } from '@mui/material';
+import React, { useState } from 'react';
+import { Table, Box, Backdrop, TableBody, TableContainer, TableHead, TableRow, Paper, styled, IconButton, Button } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
-import AddCircleIcon from '@mui/icons-material/AddCircle';
 import TableCell, { tableCellClasses } from '@mui/material/TableCell';
 import { useQuery } from "react-query";
 import { getAllLinks } from '../../services/requests';
+import { CustomModal } from '../index';
+import { AddLink, EditLink, DeleteLink } from '../index';
 
 export const Home = () => {
   const { data, isLoading, error } = useQuery(
@@ -15,6 +16,17 @@ export const Home = () => {
       retry: 5
     }
   );
+
+  const [isOpen, setIsOpen] = useState(false);
+
+  const handleClickOpen = () => {
+    setIsOpen(true);
+  };
+
+  const handleClickClose = () => {
+    setIsOpen(false);
+  };
+
 
   const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
@@ -35,17 +47,6 @@ export const Home = () => {
       border: 0,
     },
   }));
-
-  // const renderLinks = () => {
-  //   return data.map(link => {
-  //     return (
-  //       <div key={link.id}>
-  //         <p>{link.id}</p>
-  //         <p>{link.title}</p>
-  //       </div>
-  //     );
-  //   });
-  // }
 
 
   if (isLoading) return <p>Carregando...</p>;
@@ -78,15 +79,11 @@ export const Home = () => {
               <StyledTableCell align="center">{item.createdAt}</StyledTableCell>
               <StyledTableCell align="center">{item.updatedAt}</StyledTableCell>
               <StyledTableCell align="center">
-                <IconButton>
-                  <AddCircleIcon color='success' titleAccess='Adicionar' />
-                </IconButton>
-                <IconButton>
-                  <EditIcon color="primary" titleAccess='Editar' />
-                </IconButton>
-                <IconButton>
-                  <DeleteIcon color='error' titleAccess='Deletar' />
-                </IconButton>
+                <Box sx={{ display: "flex", justifyContent: "center" }}>
+                  <AddLink />
+                  <EditLink />
+                  <DeleteLink />
+                </Box>
               </StyledTableCell>
             </StyledTableRow>
           ))}
