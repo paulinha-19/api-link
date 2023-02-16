@@ -40,30 +40,14 @@ export const CustomModal = ({ isOpen, handleClose, title, children }) => {
         <Divider />
         <DialogContent>
           {children}
-          {/* <TextField
-            autoFocus
-            margin="dense"
-            id="flat"
-            label="Flat"
-            type="text"
-            fullWidth
-          />
-          <TextField
-            autoFocus
-            margin="dense"
-            id="floor"
-            label="Floor"
-            type="text"
-            fullWidth
-          /> */}
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose} color="error">
+          <Button onClick={handleClose} color="error" type="reset">
             Cancelar
           </Button>
-          <Button onClick={handleClose} color="success">
+          {/* <Button onClick={handleClose} color="success">
             Enviar dados
-          </Button>
+          </Button> */}
         </DialogActions>
       </Dialog>
     </div>

@@ -1,32 +1,23 @@
 import React, { useState } from 'react';
-import { Table, Box, Backdrop, TableBody, TableContainer, TableHead, TableRow, Paper, styled, IconButton, Button } from '@mui/material';
-import DeleteIcon from '@mui/icons-material/Delete';
-import EditIcon from '@mui/icons-material/Edit';
+import { Table, Box, TableBody, TableContainer, TableHead, TableRow, Paper, styled } from '@mui/material';
 import TableCell, { tableCellClasses } from '@mui/material/TableCell';
 import { useQuery } from "react-query";
 import { getAllLinks } from '../../services/requests';
-import { CustomModal } from '../index';
 import { AddLink, EditLink, DeleteLink } from '../index';
 
 export const Home = () => {
-  const { data, isLoading, error } = useQuery(
-    "getAllLinks",
+  const { data, isLoading, error, refetch } = useQuery(
+    "getLinks",
     getAllLinks,
     {
       retry: 5
+    },
+    {
+      refetchOnWindowFocus: false
     }
   );
-
-  const [isOpen, setIsOpen] = useState(false);
-
-  const handleClickOpen = () => {
-    setIsOpen(true);
-  };
-
-  const handleClickClose = () => {
-    setIsOpen(false);
-  };
-
+  const [selectedId, setSelectedId] = useState(null);
+  const [selectedLink, setSelectedLink] = useState(null);
 
   const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
@@ -47,14 +38,15 @@ export const Home = () => {
       border: 0,
     },
   }));
-
+  { console.log("SELECTED", selectedId) }
 
   if (isLoading) return <p>Carregando...</p>;
   if (error) return <p>Erro: {error.message}</p>;
 
   return (
     <TableContainer component={Paper} sx={{ marginTop: 5 }}>
-      <Table aria-label="simple table">
+      <AddLink error={error} />
+      <Table aria-label="simple table" sx={{ mt: 4 }}>
         <TableHead sx={{ backgroundColor: "#181717" }}>
           <StyledTableRow>
             <StyledTableCell>Id</StyledTableCell>
@@ -66,9 +58,9 @@ export const Home = () => {
           </StyledTableRow>
         </TableHead>
         <TableBody>
-          {data.map((item) => (
+          {data?.map((item) => (
             <StyledTableRow
-              key={item.title}
+              key={item.id}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
               <StyledTableCell component="th" scope="row">
@@ -80,12 +72,12 @@ export const Home = () => {
               <StyledTableCell align="center">{item.updatedAt}</StyledTableCell>
               <StyledTableCell align="center">
                 <Box sx={{ display: "flex", justifyContent: "center" }}>
-                  <AddLink />
-                  <EditLink />
-                  <DeleteLink />
+                  <EditLink uptadeData={() => setSelectedLink(item)} id={item.id} url={item.url} title={item.title} setSelectedLink={setSelectedLink} />
+                  <DeleteLink deleteData={() => setSelectedId(item.id)} link={selectedId} />
                 </Box>
               </StyledTableCell>
             </StyledTableRow>
+
           ))}
         </TableBody>
       </Table>

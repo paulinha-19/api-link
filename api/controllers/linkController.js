@@ -110,7 +110,7 @@ const deleteOneUrl = async (req, res) => {
         return res.status(200).send({ message: "Dados removidos", url, title });
     }
     catch (error) {
-        console.log(error.message);
+        console.log("ERRO AO DELETAE");
         return res.status(400).send(error.message)
     }
 }
