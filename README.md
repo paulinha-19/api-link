@@ -1,16 +1,5 @@
 <h1>API gerenciar links</h1>
 
-Tabela de conteúdos
-=================
-<p align="center">
- <a href="#objetivo">Descrição do Projeto</a> •
- <a href="#objetivo">Status do projeto</a> •
- <a href="#executar">Funcionalidades</a> • 
- <a href="#roadmap">Executar o projeto</a> • 
- <a href="#tecnologias">Tecnologias utilizadas</a> •
- <a href="#autor">Autor</a>
-</p>
-
 Descrição do projeto
 =================
 <p>O projeto trata-se de um sistema para salvar, editar, listar e deletar links de artigos.</p>
