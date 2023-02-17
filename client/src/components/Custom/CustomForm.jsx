@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import { TextField, FormControl, FormGroup, InputLabel, Input, Button, styled, Container, Typography } from '@mui/material';
-import { useMutation } from 'react-query';
+import React from 'react';
+import { TextField, FormGroup, Button, styled } from '@mui/material';
+import PropTypes from "prop-types";
 
 const ContainerStyled = styled(FormGroup)`
     max-width: 320px;
@@ -11,7 +11,7 @@ const FieldStyled = styled(TextField)`
     margin-bottom: 1rem;
 `
 
-export const CustomForm = ({ mutation, onSubmit, url, title, handleChangeInput, titleSubmit, titleLoading }) => {
+export const CustomForm = ({ onSubmit, url, title, handleChangeInput, titleSubmit }) => {
     return (
         <ContainerStyled>
             <form onSubmit={onSubmit}>
@@ -42,10 +42,20 @@ export const CustomForm = ({ mutation, onSubmit, url, title, handleChangeInput, 
                     value={title || ""}
                     onChange={(e) => handleChangeInput(e)}
                 />
-                <Button sx={{ display: "flex" }} disabled={mutation.isLoading} variant="contained" type='submit' color="primary">
-                    {mutation.isLoading ? titleLoading : titleSubmit}
+                <Button sx={{ display: "flex" }} variant="contained" type='submit' color="primary">
+                    {titleSubmit}
                 </Button>
             </form>
         </ContainerStyled>
     )
 }
+
+CustomForm.prototype = {
+    mutation: PropTypes.elementType,
+    onSubmit: PropTypes.func.isRequired,
+    url: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    handleChangeInput: PropTypes.func.isRequired,
+    titleSubmit: PropTypes.string.isRequired,
+}
+

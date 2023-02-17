@@ -16,7 +16,7 @@ export const CustomModalDelete = ({ isOpen, handleClose, children, onConfirm }) 
         <div>
             <Dialog
                 open={isOpen}
-                maxWidth="md"
+                fullWidth
                 aria-labelledby="dialog-crud"
             >
                 <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
@@ -33,11 +33,11 @@ export const CustomModalDelete = ({ isOpen, handleClose, children, onConfirm }) 
                         <CloseIcon />
                     </IconButton>
                 </Box>
-                <DialogContent>
+                <DialogContent sx={{ fontWeight: "bold", textAlign: "center" }}>
                     {children}
                 </DialogContent>
                 <DialogActions sx={{ display: "flex", justifyContent: "space-between" }}>
-                    <Button onClick={onConfirm} color="secondary">
+                    <Button onClick={() => { handleClose(); onConfirm(); }} color="primary">
                         Sim
                     </Button>
                     <Button onClick={handleClose} color="error">

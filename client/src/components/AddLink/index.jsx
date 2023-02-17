@@ -50,6 +50,7 @@ export const AddLink = () => {
                 mutation.reset();
             },
             onSettled: () => {
+                setFormLink("");
                 queryClient.invalidateQueries("getLinks");
             },
         }
@@ -58,11 +59,8 @@ export const AddLink = () => {
     const handleSubmit = async (event) => {
         event.preventDefault();
         mutation.mutate(formLink);
-        setFormLink("");
         handleClickClose();
     };
-
-    if (mutation.error) return <CustomAlert severity="error" variant="filled" titleAlert="Erro" children={mutation.error.message} />
 
     return (
         <Box>
@@ -74,7 +72,7 @@ export const AddLink = () => {
                 handleClose={handleClickClose}
                 title="Adicionar link"
             >
-                <CustomForm mutation={mutation} onSubmit={handleSubmit} url={formLink.url} title={formLink.title} handleChangeInput={handleChangeInput} titleSubmit="Adicionar" titleLoading="Adicionando..." />
+                <CustomForm mutation={mutation} onSubmit={handleSubmit} url={formLink.url} title={formLink.title} handleChangeInput={handleChangeInput} titleSubmit="Adicionar" />
             </CustomModal>
         </Box>
     )

@@ -45,9 +45,6 @@ export const CustomModal = ({ isOpen, handleClose, title, children }) => {
           <Button onClick={handleClose} color="error" type="reset">
             Cancelar
           </Button>
-          {/* <Button onClick={handleClose} color="success">
-            Enviar dados
-          </Button> */}
         </DialogActions>
       </Dialog>
     </div>
