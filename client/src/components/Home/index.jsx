@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Table, Box, TableBody, TableContainer, TableHead, TableRow, Paper, styled } from '@mui/material';
+import { Table, Box, TableBody, TableContainer, TableHead, TableRow, Paper, styled, CircularProgress } from '@mui/material';
 import TableCell, { tableCellClasses } from '@mui/material/TableCell';
 import { useQuery } from "react-query";
 import { getAllLinks } from '../../services/requests';
@@ -31,14 +31,14 @@ export const Home = () => {
     '&:nth-of-type(odd)': {
       backgroundColor: theme.palette.action.hover,
     },
-    // hide last border
     '&:last-child td, &:last-child th': {
       border: 0,
     },
   }));
 
-  if (isLoading) return <p>Carregando...</p>;
-  if (error) return <p>Erro: {error.message}</p>;
+  if (isLoading) return <Box sx={{ display: "flex", justifyContent: "center" }}><CircularProgress /></Box>
+
+  if (error) return <p>Erro: {error.message}</p>
 
   return (
     <TableContainer component={Paper} sx={{ marginTop: 5 }}>
