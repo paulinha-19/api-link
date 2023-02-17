@@ -37,7 +37,7 @@ $ npm node index.js
 ### O servidor inciará na porta:4000 - acesse <http://localhost:4000/api/links/>
 ```
 OBS: Antes de começar, você vai precisar ter instalado em sua máquina as seguintes ferramentas: [Git](https://git-scm.com), [Node.js](https://nodejs.org/en/), [MySql](https://dev.mysql.com/downloads/windows/installer/8.0.html). Nesse projeto utilizei o [VSCode](https://code.visualstudio.com/) para editar o código.
-Após instalar o MySql você deve criar um banco de dados e criar um arquivo .env na raiz do pasta /api para armazenar os dados passados para o arquivo db.js. Segue abaixo modelo do .env:
+Após instalar o MySql e realizar as configurações [tutorial aqui](https://www.youtube.com/watch?v=-Dp-IGEDnYA&t=119s) você deve criar um arquivo .env na raiz do pasta /api para armazenar os dados passados para o arquivo db.js. Segue abaixo modelo do .env:
 
 ```
 DB_NAME=//nome do banco de dados
