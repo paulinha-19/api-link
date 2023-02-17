@@ -4,9 +4,9 @@ import EditIcon from '@mui/icons-material/Edit';
 import { IconButton, Box } from '@mui/material';
 import { CustomForm } from '../Custom/CustomForm';
 import { updateLink } from '../../services/requests';
-import { useQueryClient, useMutation, useQuery } from 'react-query';
+import { useQueryClient, useMutation } from 'react-query';
 
-export const EditLink = ({ updateData, id, url, title, setSelectedLink }) => {
+export const EditLink = ({ id, url, title }) => {
     const queryClient = useQueryClient();
     const [isOpen, setIsOpen] = useState(false);
     const handleClickOpen = () => {
@@ -14,7 +14,6 @@ export const EditLink = ({ updateData, id, url, title, setSelectedLink }) => {
     };
     const handleClickClose = () => {
         setIsOpen(false);
-        setSelectedLink(null);
     };
 
     const defaultValues = {
@@ -34,10 +33,10 @@ export const EditLink = ({ updateData, id, url, title, setSelectedLink }) => {
         () => updateLink(id, formLink),
         {
             onSuccess: () => {
-                alert("SUCESSO AO EDITAR");
+                alert("DADOS EDITADOS");
             },
             onError: (error) => {
-                alert(error);
+                alert(error.response.data.message);
                 mutation.reset();
             },
             onSettled: () => {
@@ -53,14 +52,9 @@ export const EditLink = ({ updateData, id, url, title, setSelectedLink }) => {
         handleClickClose();
     };
 
-    const editLink = () => {
-        handleClickOpen();
-        updateData
-    }
-
     return (
         <Box>
-            <IconButton onClick={editLink}>
+            <IconButton onClick={handleClickOpen}>
                 <EditIcon titleAccess='Editar' color="primary" />
             </IconButton>
             <CustomModal
@@ -68,7 +62,7 @@ export const EditLink = ({ updateData, id, url, title, setSelectedLink }) => {
                 handleClose={handleClickClose}
                 title="Editar link"
             >
-                <CustomForm mutation={mutation} onSubmit={handleSubmit} url={formLink.url} title={formLink.title} handleChangeInput={handleChangeInput} />
+                <CustomForm mutation={mutation} onSubmit={handleSubmit} url={formLink.url} title={formLink.title} handleChangeInput={handleChangeInput} titleSubmit="Editar" titleLoading="Editando..." />
             </CustomModal>
         </Box>
     )

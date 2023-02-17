@@ -6,7 +6,6 @@ const getAllLink = async (req, res) => {
         return res.status(200).send(links);
     }
     catch (error) {
-        console.log(error)
         return res.status(400).send(error);
     }
 }
@@ -16,12 +15,12 @@ const getOneLink = async (req, res) => {
         const { id } = req.params;
         const getLink = await Link.findOne({ where: { id } });
         if (!getLink) {
-            return res.status(400).send("Dados não encontrado.");
+            return res.status(400).send({ message: "Dados não encontrado." });
         }
         return res.status(200).send(getLink);
     }
     catch (error) {
-        console.log(error);
+
         return res.status(400).send(error)
     }
 }
@@ -41,23 +40,25 @@ const createLink = async (req, res) => {
                 url,
                 title
             });
-            console.log("NEWLINK", newLink);
             return res.status(200).send({ message: "Dados criados", newLink });
         }
         if (findUrlExists) {
             return res.status(400).send({
-                message: `A url ${url} que você inseriu já existe. Tente outro nome!`,
+                message: `A url ${url} já existe. Para adicionar tente outro nome!`,
             });
         }
         if (findTitleExists) {
             return res.status(400).send({
-                message: `O titulo ${title} que você inseriu já existe. Tente outro nome!`,
+                message: `O titulo ${title} já existe. Para adicionar tente outro nome!`,
             });
         }
     }
     catch (error) {
-        console.log(error.message);
-        return res.status(400).send({ error: error })
+        const data = error.errors.map((numbers) => (
+            console.log(numbers.message)
+        ))
+        console.log(data);
+        return res.status(400).send({ message: error.errors })
     }
 }
 
@@ -69,12 +70,12 @@ const updateLink = async (req, res) => {
         const findTitleExists = await Link.findOne({ where: { title } })
         if (findUrlExists) {
             return res.status(400).send({
-                message: `A url ${url} que você inseriu já existe. Para alterar tente outro nome.`,
+                message: `A url ${url} já existe. Para alterar tente outro nome.`,
             });
         }
         if (findTitleExists) {
             return res.status(400).send({
-                message: `O titulo ${title} que você inseriu já existe. Para alterar tente outro nome.`,
+                message: `O titulo ${title} já existe. Para alterar tente outro nome.`,
             });
         }
         const linkUpdate = await Link.update(req.body, {
@@ -94,7 +95,6 @@ const updateLink = async (req, res) => {
         });
     }
     catch (error) {
-        console.log(error);
         return res.status(400).send(error.message)
     }
 }
@@ -110,12 +110,11 @@ const deleteOneUrl = async (req, res) => {
         return res.status(200).send({ message: "Dados removidos", url, title });
     }
     catch (error) {
-        console.log("ERRO AO DELETAE");
         return res.status(400).send(error.message)
     }
 }
 
-const deleteAllUrl = async (req, res) => {
+const deleteAllUrl = async (res) => {
     try {
         const urlAllRemoved = await Link.destroy({ where: {}, truncate: false });
         if (!urlAllRemoved) {
@@ -124,7 +123,6 @@ const deleteAllUrl = async (req, res) => {
         return res.status(200).send({ message: "Todos os dados foram removidos" });
     }
     catch (error) {
-        console.log(error.message);
         return res.status(400).send(error.message)
     }
 }

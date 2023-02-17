@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { CustomModal } from '../Custom/CustomModal';
+import { CustomModalDelete } from '../Custom/CustomModalDelete';
 import { deleteLink } from '../../services/requests';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { IconButton, Box } from '@mui/material';
@@ -29,22 +29,23 @@ export const DeleteLink = ({ deleteData, link }) => {
     );
 
     const removeLink = () => {
-        deleteData();
-        mutation.mutate(link);
+        deleteData
+        mutation.mutate();
+        handleClickClose();
     }
 
     return (
         <Box>
-            <IconButton onClick={removeLink}>
+            <IconButton onClick={handleClickOpen}>
                 <DeleteIcon titleAccess='Deletar' color="error" />
             </IconButton>
-            <CustomModal
+            <CustomModalDelete
                 isOpen={isOpen}
                 handleClose={handleClickClose}
-                title="Deletar link"
+                onConfirm={removeLink}
             >
-                <p>Form delete</p>
-            </CustomModal>
+                Você deseja mesmo deletar os dados?
+            </CustomModalDelete>
         </Box>
     )
 }

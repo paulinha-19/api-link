@@ -11,7 +11,7 @@ const FieldStyled = styled(TextField)`
     margin-bottom: 1rem;
 `
 
-export const CustomForm = ({ mutation, onSubmit, url, title, handleChangeInput }) => {
+export const CustomForm = ({ mutation, onSubmit, url, title, handleChangeInput, titleSubmit, titleLoading }) => {
     return (
         <ContainerStyled>
             <form onSubmit={onSubmit}>
@@ -41,8 +41,8 @@ export const CustomForm = ({ mutation, onSubmit, url, title, handleChangeInput }
                     value={title || ""}
                     onChange={(e) => handleChangeInput(e)}
                 />
-                <Button disabled={mutation.isLoading} variant="contained" type='submit' color="primary">
-                    {mutation.isLoading ? "Criando os dados" : "Add link"}
+                <Button sx={{ display: "flex" }} disabled={mutation.isLoading} variant="contained" type='submit' color="primary">
+                    {mutation.isLoading ? titleLoading : titleSubmit}
                 </Button>
             </form>
         </ContainerStyled>

@@ -3,8 +3,9 @@ import { CustomModal } from '../Custom/CustomModal';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import { IconButton, Box } from '@mui/material';
 import { CustomForm } from "../Custom/CustomForm";
-import { createLink, getOneLink } from '../../services/requests';
+import { createLink } from '../../services/requests';
 import { useQueryClient, useMutation } from 'react-query';
+
 
 export const AddLink = ({ error }) => {
     const [isOpen, setIsOpen] = useState(false);
@@ -34,10 +35,10 @@ export const AddLink = ({ error }) => {
         createLink,
         {
             onSuccess: () => {
-                alert("SUCESSO");
+                alert("DADOS CRIADOS");
             },
             onError: (error) => {
-                alert(error);
+                alert(error.response.data.message);
                 mutation.reset();
             },
             onSettled: () => {
@@ -66,7 +67,7 @@ export const AddLink = ({ error }) => {
                 handleClose={handleClickClose}
                 title="Adicionar link"
             >
-                <CustomForm mutation={mutation} onSubmit={handleSubmit} url={formLink.url} title={formLink.title} handleChangeInput={handleChangeInput} />
+                <CustomForm mutation={mutation} onSubmit={handleSubmit} url={formLink.url} title={formLink.title} handleChangeInput={handleChangeInput} titleSubmit="Adicionar" titleLoading="Adicionando..." />
             </CustomModal>
         </Box>
     )

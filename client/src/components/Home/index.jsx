@@ -17,7 +17,6 @@ export const Home = () => {
     }
   );
   const [selectedId, setSelectedId] = useState(null);
-  const [selectedLink, setSelectedLink] = useState(null);
 
   const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
@@ -38,7 +37,6 @@ export const Home = () => {
       border: 0,
     },
   }));
-  { console.log("SELECTED", selectedId) }
 
   if (isLoading) return <p>Carregando...</p>;
   if (error) return <p>Erro: {error.message}</p>;
@@ -72,8 +70,8 @@ export const Home = () => {
               <StyledTableCell align="center">{item.updatedAt}</StyledTableCell>
               <StyledTableCell align="center">
                 <Box sx={{ display: "flex", justifyContent: "center" }}>
-                  <EditLink uptadeData={() => setSelectedLink(item)} id={item.id} url={item.url} title={item.title} setSelectedLink={setSelectedLink} />
-                  <DeleteLink deleteData={() => setSelectedId(item.id)} link={selectedId} />
+                  <EditLink id={item.id} url={item.url} title={item.title} />
+                  {/* <DeleteLink deleteData={() => setSelectedId(item.id)} link={selectedId} /> */}
                 </Box>
               </StyledTableCell>
             </StyledTableRow>
