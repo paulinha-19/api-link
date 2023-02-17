@@ -1,16 +1,18 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Table, Box, TableBody, TableContainer, TableHead, TableRow, Paper, styled, CircularProgress } from '@mui/material';
 import TableCell, { tableCellClasses } from '@mui/material/TableCell';
 import { useQuery } from "react-query";
 import { getAllLinks } from '../../services/requests';
+import { formatDataTime } from '../../utils/dataTime';
 import { AddLink, EditLink, DeleteLink } from '../index';
+import { CustomAlert } from '../Custom/CustomAlert';
 
 export const Home = () => {
-  const { data, isLoading, error, refetch } = useQuery(
+  const { data, isLoading, error } = useQuery(
     "getLinks",
     getAllLinks,
     {
-      retry: 5
+      retry: 3
     },
     {
       refetchOnWindowFocus: false
@@ -38,11 +40,11 @@ export const Home = () => {
 
   if (isLoading) return <Box sx={{ display: "flex", justifyContent: "center" }}><CircularProgress /></Box>
 
-  if (error) return <p>Erro: {error.message}</p>
+  if (error) return <CustomAlert severity="error" variant="filled" titleAlert="Erro" children={error.message} />
 
   return (
     <TableContainer component={Paper} sx={{ marginTop: 5 }}>
-      <AddLink error={error} />
+      <AddLink />
       <Table aria-label="simple table" sx={{ mt: 4 }}>
         <TableHead sx={{ backgroundColor: "#181717" }}>
           <StyledTableRow>
@@ -65,8 +67,8 @@ export const Home = () => {
               </StyledTableCell>
               <StyledTableCell align="center">{item.url}</StyledTableCell>
               <StyledTableCell align="center">{item.title}</StyledTableCell>
-              <StyledTableCell align="center">{item.createdAt}</StyledTableCell>
-              <StyledTableCell align="center">{item.updatedAt}</StyledTableCell>
+              <StyledTableCell align="center"> {formatDataTime(item.createdAt)}</StyledTableCell>
+              <StyledTableCell align="center">{formatDataTime(item.updatedAt)}</StyledTableCell>
               <StyledTableCell align="center">
                 <Box sx={{ display: "flex", justifyContent: "center" }}>
                   <EditLink id={item.id} url={item.url} title={item.title} />

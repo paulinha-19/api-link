@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
 import { CustomModal } from '../Custom/CustomModal';
+import { CustomForm } from "../Custom/CustomForm";
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import { IconButton, Box } from '@mui/material';
-import { CustomForm } from "../Custom/CustomForm";
 import { createLink } from '../../services/requests';
 import { useQueryClient, useMutation } from 'react-query';
+import { showSuccessSubmit, showErrorSubmit } from '../../utils/reactToastify';
+import { CustomAlert } from '../Custom/CustomAlert';
 
 
-export const AddLink = ({ error }) => {
+export const AddLink = () => {
     const [isOpen, setIsOpen] = useState(false);
     const handleClickOpen = () => {
         setIsOpen(true);
@@ -35,10 +37,16 @@ export const AddLink = ({ error }) => {
         createLink,
         {
             onSuccess: () => {
-                alert("DADOS CRIADOS");
+                showSuccessSubmit();
             },
             onError: (error) => {
-                alert(error.response.data.message);
+                if (!Array.isArray(error.response.data.message)) {
+                    showErrorSubmit(error.response.data.message)
+                }
+                const data = error.response.data.message.map(item => {
+                    return JSON.stringify(item.message);
+                })
+                showErrorSubmit(data);
                 mutation.reset();
             },
             onSettled: () => {
@@ -54,8 +62,7 @@ export const AddLink = ({ error }) => {
         handleClickClose();
     };
 
-    if (mutation.isLoading) return <div>Loading...</div>;
-    if (mutation.isError) return <div>An error has occurred: {mutation.error.message}</div>;
+    if (mutation.error) return <CustomAlert severity="error" variant="filled" titleAlert="Erro" children={mutation.error.message} />
 
     return (
         <Box>
@@ -72,3 +79,5 @@ export const AddLink = ({ error }) => {
         </Box>
     )
 }
+
+

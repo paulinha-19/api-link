@@ -24,6 +24,7 @@ export const CustomForm = ({ mutation, onSubmit, url, title, handleChangeInput, 
                     label="Url"
                     name='url'
                     variant='outlined'
+                    helperText="Formatos: https://xx.com, http://xx.com ou www.xx.com"
                     value={url || ""}
                     onChange={(e) => handleChangeInput(e)}
                 />
