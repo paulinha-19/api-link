@@ -23,7 +23,6 @@ export const CustomForm = ({ mutation, onSubmit, url, title, handleChangeInput, 
                     htmlFor="url"
                     label="Url"
                     name='url'
-                    type="text"
                     variant='outlined'
                     value={url || ""}
                     onChange={(e) => handleChangeInput(e)}
@@ -37,6 +36,7 @@ export const CustomForm = ({ mutation, onSubmit, url, title, handleChangeInput, 
                     label="Titulo"
                     name='title'
                     type="text"
+                    inputProps={{ minLength: 2 }}
                     variant='outlined'
                     value={title || ""}
                     onChange={(e) => handleChangeInput(e)}

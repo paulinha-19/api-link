@@ -16,7 +16,6 @@ export const Home = () => {
       refetchOnWindowFocus: false
     }
   );
-  const [selectedId, setSelectedId] = useState(null);
 
   const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
@@ -71,11 +70,10 @@ export const Home = () => {
               <StyledTableCell align="center">
                 <Box sx={{ display: "flex", justifyContent: "center" }}>
                   <EditLink id={item.id} url={item.url} title={item.title} />
-                  {/* <DeleteLink deleteData={() => setSelectedId(item.id)} link={selectedId} /> */}
+                  <DeleteLink id={item.id} />
                 </Box>
               </StyledTableCell>
             </StyledTableRow>
-
           ))}
         </TableBody>
       </Table>
