@@ -28,7 +28,7 @@ export const showErrorSubmit = (data) => {
 };
 
 export const showSuccessDelete = () => {
-    toast.success('Sucesso ao criar os dados ', {
+    toast.success('Sucesso ao deletar os dados ', {
         position: "top-center",
         autoClose: 5000,
         hideProgressBar: true,
@@ -41,7 +41,7 @@ export const showSuccessDelete = () => {
 };
 
 export const showErrorDelete = (data) => {
-    toast.error(`Erro ao criar os dados. ${data}`, {
+    toast.error(`Erro ao deletar os dados. ${data}`, {
         position: "top-center",
         autoClose: 5000,
         hideProgressBar: true,
@@ -54,7 +54,7 @@ export const showErrorDelete = (data) => {
 };
 
 export const showSuccessEdit = () => {
-    toast.success('Sucesso ao criar os dados ', {
+    toast.success('Sucesso ao editar os dados ', {
         position: "top-center",
         autoClose: 5000,
         hideProgressBar: true,
@@ -67,7 +67,7 @@ export const showSuccessEdit = () => {
 };
 
 export const showErrorEdit = (data) => {
-    toast.error(`Erro ao criar os dados. ${data}`, {
+    toast.error(`Erro ao editar os dados. ${data}`, {
         position: "top-center",
         autoClose: 5000,
         hideProgressBar: true,

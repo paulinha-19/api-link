@@ -20,7 +20,6 @@ const getOneLink = async (req, res) => {
         return res.status(200).send(getLink);
     }
     catch (error) {
-
         return res.status(400).send(error)
     }
 }
@@ -30,11 +29,6 @@ const createLink = async (req, res) => {
     try {
         let findUrlExists = await Link.findOne({ where: { url } })
         let findTitleExists = await Link.findOne({ where: { title } })
-        // if (!url || !title) {
-        //     return res.status(400).send({
-        //         message: "Você deve inserir url e titulo para completar o processo"
-        //     });
-        // }
         if (!findUrlExists && !findTitleExists) {
             const newLink = await Link.create({
                 url,
