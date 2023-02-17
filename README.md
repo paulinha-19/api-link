@@ -70,6 +70,7 @@ $ npm run dev
 - [React](https://pt-br.reactjs.org/)
 - [JavaScript](https://developer.mozilla.org/pt-BR/docs/Web/JavaScript)
 - [Material-Ui](https://mui.com/)
+- [React Query](https://react-query-v3.tanstack.com/)
 
 Autor
 =================
