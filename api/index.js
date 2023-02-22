@@ -3,6 +3,7 @@ import cors from "cors";
 import bodyParser from "body-parser";
 import db from "./config/db.js";
 import linkRouter from "./routes/index.js"
+import webCrawler from "./utils/webCrawler.js";
 
 const app = express();
 const port = 4000;
@@ -16,6 +17,9 @@ const port = 4000;
         console.error(`Erro ao conectar o banco de dados ${process.env.DB_NAME}. `, error);
     }
 })();
+
+webCrawler()
+
 
 app.use(express.json());
 app.use(express.urlencoded());
