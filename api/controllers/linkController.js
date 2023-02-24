@@ -1,4 +1,5 @@
 import Link from "../models/linkModel.js";
+import webCrawler from "../utils/webCrawler.js";
 
 const getAllLink = async (req, res) => {
     try {
@@ -48,11 +49,55 @@ const createLink = async (req, res) => {
         }
     }
     catch (error) {
-        const data = error.errors.map((numbers) => (
-            console.log(numbers.message)
-        ))
-        console.log(data);
         return res.status(400).send({ message: error.errors })
+    }
+}
+
+const createLinkAutomated = async (req, res) => {
+    try {
+        // const containsData = (obj) => {
+        //     return allData.some(item => item.url === obj.url && item.title === obj.title);
+        // }
+        // const existsInAllData = crawler.some(containsData);
+        // console.log(existsInAllData);
+
+        // const foundItems = crawler.reduce((acc, cur) => {
+        //     const itemFound = allData.some(item => item.url === cur.url || item.title === cur.title);
+        //     if (itemFound) {
+        //         acc.found.push(cur);
+        //     } else {
+        //         acc.notFound.push(cur);
+        //     }
+        //     return acc;
+        // }, { found: [], notFound: [] });
+        const { url } = req.body;
+        const crawler = await webCrawler.webCrawler(url);
+        console.log("RESPONSE", crawler);
+        const foundItems = [];
+        const notFoundItems = [];
+        await Promise.all(crawler.map(async (cur) => {
+            const urlFound = await Link.findOne({ where: { url: cur.url } });
+            const titleFound = await Link.findOne({ where: { title: cur.title } });
+            if (urlFound || titleFound) {
+                foundItems.push(cur);
+                console.log("ADD em FOUNDITEMS", foundItems);
+            } else {
+                notFoundItems.push(cur);
+                console.log("ADD em NOTFOUND")
+            }
+        }));
+
+        if (notFoundItems.length > 0) {
+            const newLink = await Link.bulkCreate(notFoundItems);
+            console.log("ITENS CRIADOS no DB", newLink)
+            return res.status(200).send({ message: `Dados criados`, data: newLink });
+        } else {
+            return res.status(400).send({ message: `Erro ao adicionar os dados pois os dados já existem no banco.`, data: foundItems });
+        }
+    }
+    catch (error) {
+        console.log({ message: error.message });
+        return res.status(400).send(error.message)
     }
 }
 
@@ -121,4 +166,4 @@ const deleteAllUrl = async (res) => {
     }
 }
 
-export default { getAllLink, getOneLink, createLink, updateLink, deleteOneUrl, deleteAllUrl }
+export default { getAllLink, getOneLink, createLink, createLinkAutomated, updateLink, deleteOneUrl, deleteAllUrl }

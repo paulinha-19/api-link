@@ -1,15 +1,14 @@
 import React, { useState } from 'react';
 import { CustomModal } from '../Custom/CustomModal';
-import { CustomForm } from "../Custom/CustomForm";
+import { CustomFormAut } from '../Custom/CustomFormAut';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
-import { IconButton, Box } from '@mui/material';
-import { createLink } from '../../services/requests';
+import { Box, Button } from '@mui/material';
+import { createLinkAutomated } from '../../services/requests';
 import { useQueryClient, useMutation } from 'react-query';
-import { showSuccessSubmit, showErrorSubmit } from '../../utils/reactToastify';
-import { CustomAlert } from '../Custom/CustomAlert';
+import { showSuccessSubmit, showErrorDeleteAutomated } from '../../utils/reactToastify';
 
 
-export const AddLink = () => {
+export const AddAutomated = () => {
     const [isOpen, setIsOpen] = useState(false);
     const handleClickOpen = () => {
         setIsOpen(true);
@@ -20,7 +19,6 @@ export const AddLink = () => {
 
     const defaultValues = {
         url: "",
-        title: ""
     };
     const [formLink, setFormLink] = useState(defaultValues);
 
@@ -34,19 +32,16 @@ export const AddLink = () => {
 
     const queryClient = useQueryClient();
     const mutation = useMutation(
-        createLink,
+        createLinkAutomated,
         {
             onSuccess: () => {
                 showSuccessSubmit();
             },
             onError: (error) => {
-                if (!Array.isArray(error.response.data.message)) {
-                    showErrorSubmit(error.response.data.message)
-                }
-                const data = error.response.data.message.map(item => {
-                    return JSON.stringify(item.message);
+                const data = error.response.data.data.map(item => {
+                    return JSON.stringify({title: item.title, url: item.url})
                 })
-                showErrorSubmit(data);
+                showErrorDeleteAutomated(error.response.data.message, data, null, 2);
                 mutation.reset();
             },
             onSettled: () => {
@@ -60,19 +55,19 @@ export const AddLink = () => {
         event.preventDefault();
         mutation.mutate(formLink);
         handleClickClose();
-    };
+    }
 
     return (
         <Box>
-            <IconButton onClick={handleClickOpen}>
-                <AddCircleIcon titleAccess='Adicionar' color="success" />
-            </IconButton>
+            <Button sx={{ mt: 2 }} onClick={handleClickOpen} startIcon={<AddCircleIcon />} title="Adicionar" color="success" variant="contained">
+                Adicionar automatizado
+            </Button>
             <CustomModal
                 isOpen={isOpen}
                 handleClose={handleClickClose}
                 title="Adicionar link"
             >
-                <CustomForm mutation={mutation} onSubmit={handleSubmit} url={formLink.url} title={formLink.title} handleChangeInput={handleChangeInput} titleSubmit="Adicionar" />
+                <CustomFormAut mutation={mutation} onSubmit={handleSubmit} url={formLink.url} handleChangeInput={handleChangeInput} titleSubmit="Adicionar" />
             </CustomModal>
         </Box>
     )

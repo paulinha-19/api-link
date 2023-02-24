@@ -8,8 +8,8 @@ router.get("/api", (req, res) => {
 router.get("/api/links", linkController.getAllLink);
 router.get("/api/links/:id", linkController.getOneLink);
 router.post("/api/links", linkController.createLink);
+router.post("/api/links/automated", linkController.createLinkAutomated);
 router.put("/api/links/:id", linkController.updateLink);
 router.delete("/api/links/:id", linkController.deleteOneUrl);
-router.delete("/api/links/", linkController.deleteAllUrl);
 
 export { router as default };

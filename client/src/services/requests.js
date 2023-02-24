@@ -24,6 +24,11 @@ export const createLink = async (formData) => {
   return response.data;
 }
 
+export const createLinkAutomated = async (formData) => {
+  const response = await instance.post(`${baseURL}/automated`, formData, { timeout: 10000 });
+  return response.data;
+}
+
 export const updateLink = async (id, formData) => {
   const response = await instance.put(`${baseURL}/${id}`, formData);
   return response.data;

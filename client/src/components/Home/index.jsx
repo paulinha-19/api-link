@@ -4,7 +4,9 @@ import TableCell, { tableCellClasses } from '@mui/material/TableCell';
 import { useQuery } from "react-query";
 import { getAllLinks } from '../../services/requests';
 import { formatDataTime } from '../../utils/dataTime';
-import { AddLink, EditLink, DeleteLink } from '../index';
+import { EditLink, DeleteLink } from '../index';
+import { AddManual } from '../AddLink/AddManual';
+import { AddAutomated } from '../AddLink/AddAutomated';
 import { CustomAlert } from '../Custom/CustomAlert';
 
 export const Home = () => {
@@ -43,42 +45,45 @@ export const Home = () => {
   if (error) return <CustomAlert severity="error" variant="filled" titleAlert="Erro" children={error.message} />
 
   return (
-    <TableContainer component={Paper} sx={{ marginTop: 5 }}>
-      <AddLink />
-      <Table aria-label="simple table" sx={{ mt: 4 }}>
-        <TableHead sx={{ backgroundColor: "#181717" }}>
-          <StyledTableRow>
-            <StyledTableCell>Id</StyledTableCell>
-            <StyledTableCell align="center">Url</StyledTableCell>
-            <StyledTableCell align="center">Titulo</StyledTableCell>
-            <StyledTableCell align="center">Criado</StyledTableCell>
-            <StyledTableCell align="center">Atualizado</StyledTableCell>
-            <StyledTableCell align="center">Ações</StyledTableCell>
-          </StyledTableRow>
-        </TableHead>
-        <TableBody>
-          {data?.map((item) => (
-            <StyledTableRow
-              key={item.id}
-              sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-            >
-              <StyledTableCell component="th" scope="row">
-                {item.id}
-              </StyledTableCell>
-              <StyledTableCell align="center">{item.url}</StyledTableCell>
-              <StyledTableCell align="center">{item.title}</StyledTableCell>
-              <StyledTableCell align="center"> {formatDataTime(item.createdAt)}</StyledTableCell>
-              <StyledTableCell align="center">{formatDataTime(item.updatedAt)}</StyledTableCell>
-              <StyledTableCell align="center">
-                <Box sx={{ display: "flex", justifyContent: "center" }}>
-                  <EditLink id={item.id} url={item.url} title={item.title} />
-                  <DeleteLink id={item.id} />
-                </Box>
-              </StyledTableCell>
+    <Box>
+      <AddManual />
+      <AddAutomated />
+      <TableContainer component={Paper} sx={{ marginTop: 5 }}>
+        <Table aria-label="simple table">
+          <TableHead sx={{ backgroundColor: "#181717" }}>
+            <StyledTableRow>
+              <StyledTableCell>Id</StyledTableCell>
+              <StyledTableCell align="center">Url</StyledTableCell>
+              <StyledTableCell align="center">Titulo</StyledTableCell>
+              <StyledTableCell align="center">Criado</StyledTableCell>
+              <StyledTableCell align="center">Atualizado</StyledTableCell>
+              <StyledTableCell align="center">Ações</StyledTableCell>
             </StyledTableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+          </TableHead>
+          <TableBody>
+            {data?.map((item) => (
+              <StyledTableRow
+                key={item.id}
+                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+              >
+                <StyledTableCell component="th" scope="row">
+                  {item.id}
+                </StyledTableCell>
+                <StyledTableCell align="center">{item.url}</StyledTableCell>
+                <StyledTableCell align="center">{item.title}</StyledTableCell>
+                <StyledTableCell align="center"> {formatDataTime(item.createdAt)}</StyledTableCell>
+                <StyledTableCell align="center">{formatDataTime(item.updatedAt)}</StyledTableCell>
+                <StyledTableCell align="center">
+                  <Box sx={{ display: "flex", justifyContent: "center" }}>
+                    <EditLink id={item.id} url={item.url} title={item.title} />
+                    <DeleteLink id={item.id} />
+                  </Box>
+                </StyledTableCell>
+              </StyledTableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+    </Box>
   )
 }
