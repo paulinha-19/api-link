@@ -3,7 +3,6 @@ import cors from "cors";
 import bodyParser from "body-parser";
 import db from "./config/db.js";
 import linkRouter from "./routes/index.js"
-import webCrawler from "./utils/webCrawler.js";
 
 const app = express();
 const port = 4000;
@@ -18,16 +17,14 @@ const port = 4000;
     }
 })();
 
-webCrawler()
-
-
 app.use(express.json());
 app.use(express.urlencoded());
 app.use(bodyParser.json());
 app.use(cors());
 app.use(linkRouter);
 
-app.listen(port, () =>
+app.listen( port, () =>
     console.log(`Servidor iniciado na porta ${port}`)
 );
+
 
