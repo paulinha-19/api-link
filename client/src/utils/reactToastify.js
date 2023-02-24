@@ -1,8 +1,8 @@
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-export const showSuccessSubmit = () => {
-    toast.success('Sucesso ao criar os dados ', {
+export const showSuccessSubmit = (data) => {
+    toast.success(`Os dados ${data.title} e ${data.url} foram criados.`, {
         position: "top-center",
         autoClose: 5000,
         hideProgressBar: true,
@@ -28,7 +28,7 @@ export const showErrorSubmit = (data) => {
 };
 
 export const showSuccessDelete = () => {
-    toast.success('Sucesso ao deletar os dados ', {
+    toast.success('Dados deletados.', {
         position: "top-center",
         autoClose: 5000,
         hideProgressBar: true,
@@ -54,7 +54,7 @@ export const showErrorDelete = (data) => {
 };
 
 export const showSuccessEdit = () => {
-    toast.success('Sucesso ao editar os dados ', {
+    toast.success('Dados editados.', {
         position: "top-center",
         autoClose: 5000,
         hideProgressBar: true,
@@ -79,8 +79,8 @@ export const showErrorEdit = (data) => {
     });
 };
 
-export const showErrorDeleteAutomated = (message, data) => {
-    toast.error(`${message}. ${data}`, {
+export const showSucessSubmitAutomated = (data) => {
+    toast.success(`Dados criados: ${data.title} e ${data.url}; `, {
         position: "top-center",
         autoClose: 5000,
         hideProgressBar: true,

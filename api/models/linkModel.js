@@ -22,7 +22,7 @@ const Link = db.define('link', {
                 msg: "O campo url não pode ser vazio"
             },
             isUrl: {
-                msg: "A url inserida não é válida"
+                msg: "A url inserida não é válida Verifique se existe algum espaço desnecessário ou o formato da Url."
             }
             // isUrl: isValidUrl,
         },

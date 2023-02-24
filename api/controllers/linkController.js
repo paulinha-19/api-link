@@ -35,7 +35,7 @@ const createLink = async (req, res) => {
                 url,
                 title
             });
-            return res.status(200).send({ message: "Dados criados", newLink });
+            return res.status(200).send({ message: "Dados criados", data: newLink });
         }
         if (findUrlExists) {
             return res.status(400).send({
@@ -77,7 +77,7 @@ const createLinkAutomated = async (req, res) => {
             console.log("ITENS CRIADOS no DB", newLink)
             return res.status(200).send({ message: `Dados criados`, data: newLink });
         } else {
-            return res.status(400).send({ message: `Erro ao adicionar os dados pois os dados já existem no banco.`, data: foundItems });
+            return res.status(400).send({ message: `Provavelmente os dados que você está tentando inserir já existem no banco de dados.`, data: foundItems });
         }
     }
     catch (error) {
@@ -131,7 +131,7 @@ const deleteOneUrl = async (req, res) => {
         if (!urlRemoved) {
             return res.status(400).send({ message: "Os dados não podem ser removidos pois não existem." });
         }
-        return res.status(200).send({ message: "Dados removidos", url, title });
+        return res.status(200).send({ message: "Dados removidos"});
     }
     catch (error) {
         return res.status(400).send(error.message)
