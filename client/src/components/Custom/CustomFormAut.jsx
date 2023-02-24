@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { TextField, FormGroup, Button, styled } from '@mui/material';
 import PropTypes from "prop-types";
 
@@ -12,6 +12,10 @@ const FieldStyled = styled(TextField)`
 `
 
 export const CustomFormAut = ({ onSubmit, url, handleChangeInput, titleSubmit }) => {
+    const [disabled, setDisabled] = useState(false);
+    useEffect(() => {
+        url === "https://devgo.com.br/" || url === "https://devgo.com.br" ? setDisabled(false) : setDisabled(true);
+      }, [url]);
     return (
         <ContainerStyled>
             <form onSubmit={onSubmit}>
@@ -28,7 +32,7 @@ export const CustomFormAut = ({ onSubmit, url, handleChangeInput, titleSubmit })
                     value={url || ""}
                     onChange={(e) => handleChangeInput(e)}
                 />
-                <Button sx={{ display: "flex" }} variant="contained" type='submit' color="primary">
+                <Button sx={{ display: "flex" }} variant="contained" type='submit' color="primary" disabled={disabled}>
                     {titleSubmit}
                 </Button>
             </form>

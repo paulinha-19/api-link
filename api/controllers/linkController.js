@@ -55,21 +55,6 @@ const createLink = async (req, res) => {
 
 const createLinkAutomated = async (req, res) => {
     try {
-        // const containsData = (obj) => {
-        //     return allData.some(item => item.url === obj.url && item.title === obj.title);
-        // }
-        // const existsInAllData = crawler.some(containsData);
-        // console.log(existsInAllData);
-
-        // const foundItems = crawler.reduce((acc, cur) => {
-        //     const itemFound = allData.some(item => item.url === cur.url || item.title === cur.title);
-        //     if (itemFound) {
-        //         acc.found.push(cur);
-        //     } else {
-        //         acc.notFound.push(cur);
-        //     }
-        //     return acc;
-        // }, { found: [], notFound: [] });
         const { url } = req.body;
         const crawler = await webCrawler.webCrawler(url);
         console.log("RESPONSE", crawler);
