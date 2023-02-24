@@ -18,7 +18,7 @@ export const AddAutomated = () => {
     };
 
     const defaultValues = {
-        url: "",
+        url: "https://devgo.com.br",
     };
     const [formLink, setFormLink] = useState(defaultValues);
 

@@ -73,16 +73,6 @@ export const AddManual = () => {
             >
                 <CustomForm mutation={mutation} onSubmit={handleSubmit} url={formLink.url} title={formLink.title} handleChangeInput={handleChangeInput} titleSubmit="Adicionar" />
             </CustomModal>
-            {/* <Button onClick={handleClickOpen} startIcon={<AddCircleIcon />} title="Adicionar" color="success" variant="contained">
-                Adicionar automatizado
-            </Button>
-            <CustomModal
-                isOpen={isOpen}
-                handleClose={handleClickClose}
-                title="Adicionar link"
-            >
-                <CustomFormAut mutation={mutation} onSubmit={handleSubmit} url={formLink.url} handleChangeInput={handleChangeInput} titleSubmit="Adicionar" />
-            </CustomModal> */}
         </Box>
     )
 }
