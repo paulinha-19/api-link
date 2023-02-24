@@ -35,8 +35,9 @@ export const AddManual = () => {
     const mutation = useMutation(
         createLink,
         {
-            onSuccess: () => {
-                showSuccessSubmit();
+            onSuccess: (data) => {
+                const { title, url } = data.data;
+                showSuccessSubmit({title, url});
             },
             onError: (error) => {
                 if (!Array.isArray(error.response.data.message)) {

@@ -5,7 +5,7 @@ import AddCircleIcon from '@mui/icons-material/AddCircle';
 import { Box, Button } from '@mui/material';
 import { createLinkAutomated } from '../../services/requests';
 import { useQueryClient, useMutation } from 'react-query';
-import { showSuccessSubmit, showErrorDeleteAutomated } from '../../utils/reactToastify';
+import { showSucessSubmitAutomated, showErrorDelete, showErrorSubmit } from '../../utils/reactToastify';
 
 
 export const AddAutomated = () => {
@@ -34,18 +34,18 @@ export const AddAutomated = () => {
     const mutation = useMutation(
         createLinkAutomated,
         {
-            onSuccess: () => {
-                showSuccessSubmit();
+            onSuccess: (data) => {
+                console.log(data)
+                data.data.forEach(item => {
+                    const { title, url } = item;
+                    showSucessSubmitAutomated({ title, url });
+                })
             },
             onError: (error) => {
-                const data = error.response.data.data.map(item => {
-                    return JSON.stringify({title: item.title, url: item.url})
-                })
-                showErrorDeleteAutomated(error.response.data.message, data, null, 2);
+                showErrorSubmit(error.response.data.message);
                 mutation.reset();
             },
             onSettled: () => {
-                setFormLink("");
                 queryClient.invalidateQueries("getLinks");
             },
         }
