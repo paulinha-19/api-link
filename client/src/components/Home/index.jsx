@@ -1,5 +1,5 @@
-import React from 'react';
-import { Table, Box, TableBody, TableContainer, TableHead, TableRow, Paper, styled, CircularProgress } from '@mui/material';
+import React, { useState } from 'react';
+import { Table, TablePagination, Box, TableBody, TableContainer, TableHead, TableRow, Paper, styled, CircularProgress } from '@mui/material';
 import TableCell, { tableCellClasses } from '@mui/material/TableCell';
 import { useQuery } from "react-query";
 import { getAllLinks } from '../../services/requests';
@@ -8,6 +8,8 @@ import { EditLink, DeleteLink, AddAll } from '../index';
 import { CustomAlert } from '../Custom/CustomAlert';
 
 export const Home = () => {
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(5);
   const { data, isLoading, error } = useQuery(
     "getLinks",
     getAllLinks,
@@ -18,6 +20,15 @@ export const Home = () => {
       refetchOnWindowFocus: false
     }
   );
+
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(+event.target.value);
+    setPage(0);
+  };
 
   const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
@@ -49,29 +60,25 @@ export const Home = () => {
         <Table aria-label="simple table">
           <TableHead sx={{ backgroundColor: "#181717" }}>
             <StyledTableRow>
-              <StyledTableCell>Id</StyledTableCell>
-              <StyledTableCell align="center">Url</StyledTableCell>
-              <StyledTableCell align="center">Titulo</StyledTableCell>
-              <StyledTableCell align="center">Criado</StyledTableCell>
-              <StyledTableCell align="center">Atualizado</StyledTableCell>
-              <StyledTableCell align="center">Ações</StyledTableCell>
+              <StyledTableCell>Url</StyledTableCell>
+              <StyledTableCell>Titulo</StyledTableCell>
+              <StyledTableCell >Criado</StyledTableCell>
+              <StyledTableCell >Atualizado</StyledTableCell>
+              <StyledTableCell align="right">Ações</StyledTableCell>
             </StyledTableRow>
           </TableHead>
           <TableBody>
-            {data?.map((item) => (
+            {data?.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((item) => (
               <StyledTableRow
                 key={item.id}
                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
               >
-                <StyledTableCell component="th" scope="row">
-                  {item.id}
-                </StyledTableCell>
-                <StyledTableCell align="center">{item.url}</StyledTableCell>
-                <StyledTableCell align="center">{item.title}</StyledTableCell>
-                <StyledTableCell align="center"> {formatDataTime(item.createdAt)}</StyledTableCell>
-                <StyledTableCell align="center">{formatDataTime(item.updatedAt)}</StyledTableCell>
-                <StyledTableCell align="center">
-                  <Box sx={{ display: "flex", justifyContent: "center" }}>
+                <StyledTableCell >{item.url}</StyledTableCell>
+                <StyledTableCell>{item.title}</StyledTableCell>
+                <StyledTableCell > {formatDataTime(item.createdAt)}</StyledTableCell>
+                <StyledTableCell >{formatDataTime(item.updatedAt)}</StyledTableCell>
+                <StyledTableCell>
+                  <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
                     <EditLink id={item.id} url={item.url} title={item.title} />
                     <DeleteLink id={item.id} />
                   </Box>
@@ -81,6 +88,15 @@ export const Home = () => {
           </TableBody>
         </Table>
       </TableContainer>
+      <TablePagination
+        rowsPerPageOptions={[5, 15, 50]}
+        component="div"
+        count={data.length}
+        rowsPerPage={rowsPerPage}
+        page={page}
+        onPageChange={handleChangePage}
+        onRowsPerPageChange={handleChangeRowsPerPage}
+      />
     </Box>
   )
 }

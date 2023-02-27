@@ -60,7 +60,7 @@ export const AddAutomated = () => {
     return (
         <Box>
             <Button sx={{ mt: 2 }} onClick={handleClickOpen} startIcon={<AddCircleIcon />} title="Adicionar" color="primary" variant="contained">
-                Adicionar automatizado
+                Automatizado
             </Button>
             <CustomModal
                 isOpen={isOpen}
