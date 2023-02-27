@@ -37,7 +37,7 @@ export const AddManual = () => {
         {
             onSuccess: (data) => {
                 const { title, url } = data.data;
-                showSuccessSubmit({title, url});
+                showSuccessSubmit({ title, url });
             },
             onError: (error) => {
                 if (!Array.isArray(error.response.data.message)) {
@@ -65,7 +65,7 @@ export const AddManual = () => {
     return (
         <Box>
             <Button onClick={handleClickOpen} startIcon={<AddCircleIcon />} title="Adicionar" color="inherit" variant="contained">
-                Adicionar manualmente
+                Manualmente
             </Button>
             <CustomModal
                 isOpen={isOpen}
