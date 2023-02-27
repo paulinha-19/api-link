@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { CustomModal } from '../Custom/CustomModal';
 import { CustomForm } from "../Custom/CustomForm";
 import AddCircleIcon from '@mui/icons-material/AddCircle';
-import { IconButton, Box, Button } from '@mui/material';
+import { Box, Button } from '@mui/material';
 import { createLink } from '../../services/requests';
 import { useQueryClient, useMutation } from 'react-query';
 import { showSuccessSubmit, showErrorSubmit } from '../../utils/reactToastify';
@@ -64,7 +64,7 @@ export const AddManual = () => {
 
     return (
         <Box>
-            <Button onClick={handleClickOpen} startIcon={<AddCircleIcon />} title="Adicionar" color="success" variant="contained">
+            <Button onClick={handleClickOpen} startIcon={<AddCircleIcon />} title="Adicionar" color="inherit" variant="contained">
                 Adicionar manualmente
             </Button>
             <CustomModal

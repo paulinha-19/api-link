@@ -4,9 +4,7 @@ import TableCell, { tableCellClasses } from '@mui/material/TableCell';
 import { useQuery } from "react-query";
 import { getAllLinks } from '../../services/requests';
 import { formatDataTime } from '../../utils/dataTime';
-import { EditLink, DeleteLink } from '../index';
-import { AddManual } from '../AddLink/AddManual';
-import { AddAutomated } from '../AddLink/AddAutomated';
+import { EditLink, DeleteLink, AddAll } from '../index';
 import { CustomAlert } from '../Custom/CustomAlert';
 
 export const Home = () => {
@@ -46,9 +44,8 @@ export const Home = () => {
 
   return (
     <Box>
-      <AddManual />
-      <AddAutomated />
-      <TableContainer component={Paper} sx={{ marginTop: 5 }}>
+      <AddAll />
+      <TableContainer component={Paper}>
         <Table aria-label="simple table">
           <TableHead sx={{ backgroundColor: "#181717" }}>
             <StyledTableRow>
