@@ -2,10 +2,11 @@ import express from "express";
 import cors from "cors";
 import bodyParser from "body-parser";
 import db from "./config/db.js";
-import linkRouter from "./routes/index.js"
+import linkRouter from "./routes/index.js";
+import dotenv from "dotenv/config.js";
 
 const app = express();
-const port = 4000;
+const PORT = process.env.PORT || 4000;
 
 (async () => {
     try {
@@ -23,8 +24,8 @@ app.use(bodyParser.json());
 app.use(cors());
 app.use(linkRouter);
 
-app.listen( port, () =>
-    console.log(`Servidor iniciado na porta ${port}`)
+app.listen(PORT, () =>
+    console.log(`Servidor iniciado na porta ${PORT}`)
 );
 
 
