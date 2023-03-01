@@ -6,20 +6,20 @@ import linkRouter from "./routes/index.js";
 import dotenv from "dotenv/config.js";
 
 const app = express();
-const PORT = process.env.PORT || 4000;
+const PORT = process.env.PORT;
 
 (async () => {
     try {
-        const response = await db.sync();
-        console.log(response, `. O banco de dados ${process.env.DB_NAME} foi conectado`);
+        await db.authenticate();
+        console.log(`. O banco de dados ${process.env.DB_NAME} foi conectado`);
     }
     catch (error) {
-        console.error(`Erro ao conectar o banco de dados ${process.env.DB_NAME}. `, error);
+        console.error(`Erro ao conectar o banco de dados ${process.env.DB_NAME}. ${error} `);
     }
 })();
 
 app.use(express.json());
-app.use(express.urlencoded());
+app.use(express.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(cors());
 app.use(linkRouter);
@@ -27,5 +27,6 @@ app.use(linkRouter);
 app.listen(PORT, () =>
     console.log(`Servidor iniciado na porta ${PORT}`)
 );
+
 
 
