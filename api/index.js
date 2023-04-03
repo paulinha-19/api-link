@@ -6,7 +6,6 @@ import linkRouter from "./routes/index.js";
 import dotenv from "dotenv/config.js";
 
 const app = express();
-const PORT = process.env.PORT;
 
 (async () => {
     try {
@@ -24,8 +23,8 @@ app.use(bodyParser.json());
 app.use(cors());
 app.use(linkRouter);
 
-app.listen(PORT || 3000, () =>
-    console.log(`Servidor iniciado na porta ${PORT}`)
+app.listen(process.env.PORT || 3000, () =>
+    console.log(`Servidor iniciado na porta ${process.env.PORT}`)
 );
 
 
