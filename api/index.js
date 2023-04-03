@@ -10,7 +10,7 @@ const PORT = process.env.PORT;
 
 (async () => {
     try {
-        await db.authenticate();
+        await db.sync();
         console.log(`. O banco de dados ${process.env.DB_NAME} foi conectado`);
     }
     catch (error) {
@@ -24,7 +24,7 @@ app.use(bodyParser.json());
 app.use(cors());
 app.use(linkRouter);
 
-app.listen(PORT, () =>
+app.listen(PORT || 3000, () =>
     console.log(`Servidor iniciado na porta ${PORT}`)
 );
 
