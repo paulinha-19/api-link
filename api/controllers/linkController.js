@@ -1,4 +1,4 @@
-import Link from "../models/linkModel.js";
+import Link from "../models/link.js";
 import webCrawler from "../utils/webCrawler.js";
 
 const getAllLink = async (req, res) => {
