@@ -1,8 +1,8 @@
 import express from "express";
 import cors from "cors";
 import bodyParser from "body-parser";
-import db from "./src/config/db.js";
-import linkRouter from "./src/routes/index.js";
+import db from "./config/db.js";
+import linkRouter from "./routes/index.js";
 import dotenv from "dotenv/config.js";
 
 const app = express();
