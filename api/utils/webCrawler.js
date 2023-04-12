@@ -1,5 +1,5 @@
-import * as cheerio from 'cheerio';
-import axios from "axios";
+const cheerio = require('cheerio');
+const axios = require("axios");
 
 const fetchData = async (url) => {
     try {
@@ -7,7 +7,7 @@ const fetchData = async (url) => {
         return result.data
     }
     catch (error) {
-        console.log(error);
+        console.error(error);
     }
 }
 
@@ -32,4 +32,4 @@ const webCrawler = async (url) => {
     const allArticles = [...emptyArticles, ...articleWithoutHttps, ...articleWithHttps];
     return allArticles;
 }
-export default { fetchData, webCrawler }
+module.exports = { fetchData, webCrawler }

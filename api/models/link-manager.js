@@ -1,5 +1,5 @@
-import { DataTypes } from "sequelize";
-import db from "../config/db.js"
+const { DataTypes } = require('sequelize');
+const db = require("../config/db");
 
 const Link = db.define("Link", {
     id: {
@@ -33,4 +33,4 @@ const Link = db.define("Link", {
     },
 })
 
-export default Link
+module.exports = Link;

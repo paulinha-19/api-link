@@ -1,11 +1,10 @@
-import express from "express";
-import cors from "cors";
-import bodyParser from "body-parser";
-import db from "./config/db.js";
-import linkRouter from "./routes/index.js";
-import dotenv from "dotenv/config.js";
-
+const express = require("express");
+const cors = require("cors");
+const bodyParser = require("body-parser");
+const db = require("./config/db");
+const linkRouter = require("./routes/index");
 const app = express();
+require("dotenv").config();
 
 (async () => {
     try {

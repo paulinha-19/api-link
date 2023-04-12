@@ -1,5 +1,4 @@
-import { Model, DataTypes } from 'sequelize';
-
+const { DataTypes, Model } = require('sequelize');
 export default (sequelize) => {
   class Link extends Model {
      /**

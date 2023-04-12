@@ -1,9 +1,9 @@
-import Link from "../models/link-manager.js";
-import webCrawler from "../utils/webCrawler.js";
+const linkModel = require("../models/link-manager");
+const webCrawler = require("../utils/webCrawler");
 
-const getAllLink = async (req, res) => {
+exports.getAllLink = async (req, res) => {
     try {
-        const links = await Link.findAll();
+        const links = await linkModel.findAll();
         return res.status(200).send(links);
     }
     catch (error) {
@@ -11,10 +11,10 @@ const getAllLink = async (req, res) => {
     }
 }
 
-const getOneLink = async (req, res) => {
+exports.getOneLink = async (req, res) => {
     try {
         const { id } = req.params;
-        const getLink = await Link.findOne({ where: { id } });
+        const getLink = await linkModel.findOne({ where: { id } });
         if (!getLink) {
             return res.status(400).send({ message: "Dados não encontrado." });
         }
@@ -25,13 +25,13 @@ const getOneLink = async (req, res) => {
     }
 }
 
-const createLink = async (req, res) => {
+exports.createLink = async (req, res) => {
     const { url, title } = req.body;
     try {
-        let findUrlExists = await Link.findOne({ where: { url } })
-        let findTitleExists = await Link.findOne({ where: { title } })
+        let findUrlExists = await linkModel.findOne({ where: { url } })
+        let findTitleExists = await linkModel.findOne({ where: { title } })
         if (!findUrlExists && !findTitleExists) {
-            const newLink = await Link.create({
+            const newLink = await linkModel.create({
                 url,
                 title
             });
@@ -53,7 +53,7 @@ const createLink = async (req, res) => {
     }
 }
 
-const createLinkAutomated = async (req, res) => {
+exports.createLinkAutomated = async (req, res) => {
     try {
         const { url } = req.body;
         const crawler = await webCrawler.webCrawler(url);
@@ -61,8 +61,8 @@ const createLinkAutomated = async (req, res) => {
         const foundItems = [];
         const notFoundItems = [];
         await Promise.all(crawler.map(async (cur) => {
-            const urlFound = await Link.findOne({ where: { url: cur.url } });
-            const titleFound = await Link.findOne({ where: { title: cur.title } });
+            const urlFound = await linkModel.findOne({ where: { url: cur.url } });
+            const titleFound = await linkModel.findOne({ where: { title: cur.title } });
             if (urlFound || titleFound) {
                 foundItems.push(cur);
                 console.log("ADD em FOUNDITEMS", foundItems);
@@ -73,7 +73,7 @@ const createLinkAutomated = async (req, res) => {
         }));
 
         if (notFoundItems.length > 0) {
-            const newLink = await Link.bulkCreate(notFoundItems);
+            const newLink = await linkModel.bulkCreate(notFoundItems);
             console.log("ITENS CRIADOS no DB", newLink)
             return res.status(200).send({ message: `Dados criados`, data: newLink });
         } else {
@@ -86,12 +86,12 @@ const createLinkAutomated = async (req, res) => {
     }
 }
 
-const updateLink = async (req, res) => {
+exports.updateLink = async (req, res) => {
     try {
         const { url, title } = req.body;
         const { id } = req.params;
-        const findUrlExists = await Link.findOne({ where: { url } })
-        const findTitleExists = await Link.findOne({ where: { title } })
+        const findUrlExists = await linkModel.findOne({ where: { url } })
+        const findTitleExists = await linkModel.findOne({ where: { title } })
         if (findUrlExists) {
             return res.status(400).send({
                 message: `A url ${url} já existe. Para alterar tente outro nome.`,
@@ -102,7 +102,7 @@ const updateLink = async (req, res) => {
                 message: `O titulo ${title} já existe. Para alterar tente outro nome.`,
             });
         }
-        const linkUpdate = await Link.update(req.body, {
+        const linkUpdate = await linkModel.update(req.body, {
             where: {
                 id: id
             }
@@ -123,24 +123,24 @@ const updateLink = async (req, res) => {
     }
 }
 
-const deleteOneUrl = async (req, res) => {
+exports.deleteOneUrl = async (req, res) => {
     const { url, title } = req.body
     try {
         const { id } = req.params
-        const urlRemoved = await Link.destroy({ where: { id } });
+        const urlRemoved = await linkModel.destroy({ where: { id } });
         if (!urlRemoved) {
             return res.status(400).send({ message: "Os dados não podem ser removidos pois não existem." });
         }
-        return res.status(200).send({ message: "Dados removidos"});
+        return res.status(200).send({ message: "Dados removidos" });
     }
     catch (error) {
         return res.status(400).send(error.message)
     }
 }
 
-const deleteAllUrl = async (res) => {
+exports.deleteAllUrl = async (res) => {
     try {
-        const urlAllRemoved = await Link.destroy({ where: {}, truncate: false });
+        const urlAllRemoved = await linkModel.destroy({ where: {}, truncate: false });
         if (!urlAllRemoved) {
             return res.status(400).send({ message: "Os dados não podem ser removidos pois não existem." });
         }
@@ -151,4 +151,3 @@ const deleteAllUrl = async (res) => {
     }
 }
 
-export default { getAllLink, getOneLink, createLink, createLinkAutomated, updateLink, deleteOneUrl, deleteAllUrl }

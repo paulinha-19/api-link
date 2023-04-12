@@ -1,6 +1,6 @@
-import express from "express";
-import linkController from "../controllers/linkController.js";
+const express = require("express");
 const router = express.Router();
+const linkController = require("../controllers/linkController");
 
 router.get("/api", (req, res) => {
     return res.json({ message: "Server is on" });
@@ -12,4 +12,4 @@ router.post("/api/links/automated", linkController.createLinkAutomated);
 router.put("/api/links/:id", linkController.updateLink);
 router.delete("/api/links/:id", linkController.deleteOneUrl);
 
-export { router as default };
+module.exports = router;
