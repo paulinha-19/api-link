@@ -1,8 +1,6 @@
-<h1>API gerenciar links</h1>
-
 Descrição do projeto
 =================
-<p>O projeto trata-se de um sistema para salvar, editar, listar e deletar links de artigos.</p>
+<p>O projeto trata-se de um sistema para salvar, editar, listar e deletar links de artigos e foi um teste tecnico para uma vaga de trainee</p>
 
 Status do projeto
 =================
