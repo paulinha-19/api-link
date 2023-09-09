@@ -11,5 +11,6 @@ router.post("/api/links", linkController.createLink);
 router.post("/api/links/automated", linkController.createLinkAutomated);
 router.put("/api/links/:id", linkController.updateLink);
 router.delete("/api/links/:id", linkController.deleteOneUrl);
+router.delete("/api/links", linkController.deleteAllUrl);
 
 module.exports = router;
