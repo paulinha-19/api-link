@@ -25,7 +25,7 @@ const webCrawler = async (url) => {
     })
     $('div.blog-articles-container > div.blog-article-card').each((index, el) => {
         const title = $(el).find('.blog-article-card-title > a').text();
-        const url = $(el).find('a.blog-article-card-cover').attr("href");
+        const url = $(el).find('h1.blog-article-card-title > a').attr("href");
         const data = { title, url }
         articleWithHttps.push(data);
     })
